@@ -1,0 +1,21 @@
+0
+   No charge.
+1
+   A block -1 and counter-ions.
+2
+   A block -1 and counter-ions.
+   B block +1 and counter-ions.
+3
+   Half of A block -1 with counter-ions.
+4
+   Polyanions and polycations. No counterions.
+5
+   Pure ionized salts.
+6
+   Multi-block charged polymers. Molecule topology assigned by additional parameters:
+      micellePolymerNQ     charge per block
+      micelleNIons         number of ions
+      micelleIonQ          valence of ions
+Q < 0
+  Polymers are neutral.
+  Q/2 solvents are anions and Q/2 solvents are cations.

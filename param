@@ -1,0 +1,38 @@
+----- System parameters -----
+4.000000  4.000000  4.000000        boxL
+12  12  12                          nGrid
+4                                   nType
+0.000000                            bondL
+2   14                              nBlock
+960                                 nPolymer
+0                                   nNeutralSolvent
+-1024                               chargeCode
+0                                   useEwald
+0                                   configFile
+-100090120                          seed
+
+----- Thermodynamics parameters -----
+25.00                               chiN
+0.00   -40.00                       
+0.00   0.00   0.00                  
+50.00                               kappaN
+16.000000                           sqrtNbar
+4.00     2.00     0.08              esStrength esRatio radius
+0                                   isIsobaric
+2                                   oprmFlag (order parameter flag)
+0   0   1                           waveIndex
+0                                   dosFlag
+
+----- Simulation parameters -----
+1000000                             nMCmoves
+0.200                               pBeadMove
+0.800                               beadMoveSize (in unit of bond length)
+0.400                               pChainFlipMove
+0.400                               pReptationMove
+5                                   nReptationMax
+0.000                               pSemiGrandSaltMove
+0.000                               delta mu
+3501                                dielectricInterval
+1000                                energyInterval
+-1000                               configInterval
+0                                   nDiagnosis
