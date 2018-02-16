@@ -320,13 +320,10 @@ namespace GridMC
       solvationEnergy_ *= esStrength_ / (2.0 * aBorn_);
 
       // LJ energy
-      int total = 0;
-      double distotal = 0.0;
       ljEnergy_ = 0.0;
       for (i = 0; i < int(beads_.size()); ++i) {
         for (j = 0; j < i; ++j) {
           if (fabs(beads_[i].q) > Constants::Epsilon && fabs(beads_[j].q) > Constants::Epsilon) {
-            total ++;
             r1 = beads_[i].r;
             r2 = beads_[j].r;
             toPrimaryCell(r1);
@@ -341,7 +338,6 @@ namespace GridMC
               }
             }
             double r = dr.abs();
-            distotal += r;
             if (r < cutoff_) {
               ljEnergy_ += 4 * epsi_ * (pow(sigma_ / r, 12) - pow(sigma_ / r, 6));
             }
