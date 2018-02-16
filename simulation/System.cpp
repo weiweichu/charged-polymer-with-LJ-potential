@@ -664,7 +664,7 @@ namespace GridMC
       ptr = &(beads_[0]);
       for (i = 0; i < nPolymerBeads_ + nSolvents_; ++i) {
          getline(in, line);
-         sscanf(line.c_str(), "%d  %lf  %lf  %lf  %s", &type, &(ptr->r[0]), &(ptr->r[1]), &(ptr->r[2]), comment);
+         sscanf(line.c_str(), "%d  %lf  %lf  %lf  %lf  %s", &type, &(ptr->r[0]), &(ptr->r[1]), &(ptr->r[2]), &(ptr->q), comment);
          if (ptr->t != type) {
             Log::file() << "bead id:            " << i << endl;
             Log::file() << "bead type:          " << ptr->t << endl;

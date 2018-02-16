@@ -320,24 +320,36 @@ namespace GridMC
       solvationEnergy_ *= esStrength_ / (2.0 * aBorn_);
 
       // LJ energy
+      int total = 0;
+      double distotal = 0.0;
       ljEnergy_ = 0.0;
       for (i = 0; i < int(beads_.size()); ++i) {
         for (j = 0; j < i; ++j) {
           if (fabs(beads_[i].q) > Constants::Epsilon && fabs(beads_[j].q) > Constants::Epsilon) {
+            total ++;
             r1 = beads_[i].r;
             r2 = beads_[j].r;
-            dr.subtract(r2, r1);
-            toPrimaryCell(dr);
+            toPrimaryCell(r1);
+            toPrimaryCell(r2);
+            for (int m = 0; m < 3; m++) {
+              dr[m] = fabs(r1[m] - r2[m]);
+              if (dr[m] > boxL_[m] / 2.0) {
+                dr[m] = boxL_[m] - dr[m];
+                if (dr[m] > boxL_[m] / 2.0) {
+                  Log::file() << "distance over half box" << endl;
+                }
+              }
+            }
             double r = dr.abs();
+            distotal += r;
             if (r < cutoff_) {
               ljEnergy_ += 4 * epsi_ * (pow(sigma_ / r, 12) - pow(sigma_ / r, 6));
             }
           }
         }
       }
-      Log::file() << "ljenergy  " << ljEnergy_ << endl;
       // Pressure.
-      pV_ = -2.0*bondEnergy_/3.0 + twobodyEnergy_ + coulombEnergy_/3.0;
+      pV_ = -2.0*bondEnergy_/3.0 + twobodyEnergy_ + coulombEnergy_/3.0 + ljEnergy_;
 
       // Order parameter.
       psi_.calculate();
@@ -368,9 +380,10 @@ namespace GridMC
       ljEnergy_        += dLjEnergy_;
       if (useEwald_ > 0 && fabs(beads_[id].q) > Constants::Epsilon)
          ewald_.updateFourierModes();
-      pV_   = -2.0*bondEnergy_/3.0 + twobodyEnergy_ + coulombEnergy_/3.0;
+      pV_   = -2.0*bondEnergy_/3.0 + twobodyEnergy_ + coulombEnergy_/3.0 + ljEnergy_;
       psi_.updateByChange();
 
+      //Log::file() << "dE: b nb c s lj    " << dBondEnergy_<< "  "<< dTwobodyEnergy_ <<"  "<<dCoulombEnergy_ <<"  "<<dSolvationEnergy_ <<"  "<<dLjEnergy_ << endl;
       /*
       if (psi_.get() > 0.25 && psi_.get() < 0.35 && i030 == 0) {
          std::ofstream outconfig;
@@ -408,7 +421,6 @@ namespace GridMC
          dCoulombEnergy_ = grid_.getCoulombEnergyChange(beads_[id].q);
  
       dLjEnergy_ = getLjEnergyChange(id, rTrial);
-
       double Qi = beads_[id].q;
       // Solvation energy change.
       if (fabs(Qi) > Constants::Epsilon) {

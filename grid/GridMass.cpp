@@ -86,11 +86,6 @@ namespace GridMC
    void GridMass::updateNeighbor(const int id, const Vector& r, const Vector& rTrial) {
      fillNeighborList(id, r, -1);
      fillNeighborList(id, rTrial, 1);
-//     int total = 0;
-//     for (int i = 0; i < int(neighbor_.size()); i++) {
-//       total += int(neighbor_[i].size());
-//     }
-//     Log::file() << "number of charged beads after neighbor update   " <<total << std::endl;
    }
    /*
    * Insert bead to the grid.

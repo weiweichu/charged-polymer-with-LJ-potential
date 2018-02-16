@@ -95,6 +95,7 @@ namespace GridMC
 
          ++nAttempt_;
          if (result) { 
+           //Log::file() << "success bead move" << endl;
             system_.updateStatusVariable(id, rTrial);
             ++nAccept_;
          }

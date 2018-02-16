@@ -9,8 +9,8 @@ cxxflags= -O3 -ffast-math -Wall -Winline -std=$(optstd) -pedantic -DHAVE_INLINE 
 cxx=g++ $(cxxflags) -I$(src_dir)
 exe=gmc
 
-cxx=mpicxx $(cxxflags) -I$(src_dir) -DUTIL_MPI
-exe=gmc_p
+#cxx=mpicxx $(cxxflags) -I$(src_dir) -DUTIL_MPI
+#exe=gmc_p
 
 constants=util/Constants
 log=util/Log
